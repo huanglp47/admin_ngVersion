@@ -1,0 +1,160 @@
+<div class="address-nav"><a>书籍管理</a><span>&gt;</span><a href="s_BookList.jsp#typeId=0&amp;pageNum=1&amp;pageSize=20">书籍列表</a></div>
+<div class="header">
+        <select id="keyOne" name="keyOne" data-syn-url="true">
+            <option>全部书籍</option>
+            <option value="bstate_offline">已下线书籍(渠道下线)</option>
+            <option value="state_offline">已下线书籍(默认下线)</option>
+            <option value="book_serial">连载书籍</option>
+            <option value="copyright">指定版权书籍</option>
+            <option value="server">指定服务器书籍</option>
+        </select>
+        <select id="fatherTypeId" name="fatherTypeId" data-syn-url="true" data-value="" data-value-name="typeId" data-text-name="typeName" data-get="bookmanage/GetFatherType.action?fatherId=0">
+            <option value="-100" selected="selected">全部分类</option>
+        </select>
+        <select id="sonTypeId" data-syn-url="true" name="sonTypeId" data-get="" data-value-name="typeId" data-text-name="typeName">
+            <option value="-100" selected="selected">全部子类</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select id="searchFiled" name="searchFiled">
+            <option value="bookName" selected="selected">书名</option>
+            <option value="author">作者</option>
+            <option value="announcer">播音</option>
+        </select>
+        <input type="text" name="keyWord" placeholder="请输入书名" data-syn-url="true" />
+        <a class="btn" id="searchAll">搜索书籍</a>
+        <a class="btn fr" ui-sref="stateAddBook">添加书籍</a>
+    </div>
+<div class="list-view" data-get="bookmanage/BookListManage.action">
+        <table>
+            <thead>
+            <tr>
+                <th>书籍ID</th>
+                <th>书籍封面</th>
+                <th>书籍名称</th>
+                <th>所属分类</th>
+                <th>作者</th>
+
+                <th>授权方</th>
+                <th>完结</th>
+                <th>章节数</th>
+                <th>字数</th>
+                <th>免费章节</th>
+
+                <th>整本价格</th>
+                <th>千字价</th>
+                <th>读者</th>
+                <th>销量</th>
+                <th>状态</th>
+
+                <th>上线时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="it in list" data-id="{{it.bookId}}" ng-dblclick="popEvent()">
+                <td>{{it.bookId}}</td>
+                <td>
+                    <a href="${homeUrl}book/{{it.bookId}}" target="_blank">
+                        <img src="{{it.cover}}" />
+                    </a>
+                </td>
+                <td><a data-pop-url="" data-pop-title="">{{it.bookName}}</a></td>
+                <td>{{it.bookType}}</td>
+                <td>{{it.author}}</td>
+
+                <td>{{it.copyright}}</td>
+                <td>{{it.contentState}}</td>
+                <td><a data-pop-url="" data-pop-title="">{{it.sections}}</a></td>
+                <td>{{it.words}}</td>
+                <td>{{it.freeSections}}</td>
+
+                <td>{{it.allPrice}}</td>
+                <td>{{it.discount}}</td>
+                <td>{{it.wordsPrice}}</td>
+                <td>100000</td>
+                <td>{{it.state}}</td>
+
+                <td>{{it.onlineTime}}</td>
+                <td>
+                    <a href="s_AddBook.jsp?bookId={{it.bookId}}">编辑</a>
+                    <a href="">推荐</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <a href="#pageNum={{prevPage}}">上一页</a>
+            {{prevPage}}/{{totalPage}}页    共{{numPage}}条
+            <a class="next" href="#pageNum={{nextPage}}">下一页</a>
+            <input name="pageNum" type="number" value="1" min="1">
+            <a class="go" href="#pageNum=1">跳转</a>
+        </div>
+    </div>
+
+<script>
+//    angular.module('myApp', [])
+//            .controller('BookController', ['$scope', '$http', '$window', '$filter',
+//                function($scope, $http, $window, $filter) {
+//                    var url = "data_bookList.json",
+//                            req = {
+//                                method: 'GET',
+//                                url: url,
+//                                headers: {
+//                                    'Content-Type': 'application/json'
+//                                }
+//                            };
+//                    $http(req).success(function(response) {
+//                        $scope.list = response.list;
+//
+//                        $scope.prevPage = $filter('myFilterPro')(response);
+//                        $scope.totalPage = Math.ceil(response.count/response.pageNum);
+//                        $scope.numPage = Math.ceil(response.count/20);
+//
+//                    }).error(function(response, status, headers, config) {
+//                        console.log(response);
+//                    });
+//                    // $window.alert(123);
+//                }])
+//            .filter('myFilter', function() { // 过滤器
+//                return function(list) {
+//                    if (list) {
+//                        var len = list.length;
+//                        for (var i = 0; i < len; i++) {
+//                            if (list[i].state == 1) {
+//                                list[i].stateText = '连载';
+//                            } else if (list[i].state == 2) {
+//                                list[i].stateText = '完结';
+//                            } else if (list[i].state == 10) {
+//                                list[i].stateText = '下线';
+//                            } else {
+//                                list[i].stateText = '无';
+//                            };
+//
+//                            //渠道
+//                            if (list[i].bState == 0) {
+//                                list[i].way = '正常';
+//                            } else if (list[i].bState == 1) {
+//                                list[i].way = '下线';
+//                            };
+//
+//                        }
+//                    }
+//                    return list;
+//                };
+//            })
+//            .filter('myFilterPro',function() {
+//                return function(data){
+//                    if(data && data.pageNum !== 'undefined'){
+//                        if(data.pageNum == 1){
+//                            return 1
+//                        }else{
+//                            return data.pageNum - 1 ;
+//                        };
+//
+//                    }
+//                };
+//            });
+</script>
+
+<!--<a ui-sref="state1.list">Show List</a>-->
+<!--<div ui-view></div>-->

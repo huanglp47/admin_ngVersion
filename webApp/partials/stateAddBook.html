@@ -1,0 +1,341 @@
+<table class="view" data-get="bookmanage/GetBook.action">
+    <tbody>
+        <tr>
+            <td>书籍名称：</td>
+            <td><input id="bookName" name="bookName" type="text" required="required" value="" ng-model="{{data.bookName}}"></td>
+            <td>{{data.bookName}}</td>
+        </tr>
+        <tr>
+            <td>书籍分类：</td>
+            <td><select id="fatherTypeId" data-value="" onchange="changeFatherTypeId()" name="fatherTypeId" data-value-name="typeId" data-text-name="typeName" data-get="bookmanage/GetFatherType.action?fatherId=0">
+                <option value="-100">一级分类</option>
+            </select>
+				<span id="sonTypeIdSpan"><select id="sonTypeId" data-value="" name="sonTypeId" data-value-name="typeId" data-text-name="typeName"   data-get="">
+                    <option value="-100">一级分类</option>
+                </select></span>
+            </td>
+        </tr>
+        <tr>
+            <td>作者：</td>
+            <td><input id="author" name="author" type="text" value=""></td>
+        </tr>
+        <tr>
+            <td>播音员：</td>
+            <td>
+                <div id="anchorList">
+                    <div style="border:1px solid #b5b5b5;float:left;padding:2px 4px">
+                        <span></span>&nbsp;
+                        <a class="xx">X</a>
+                        <input type="hidden" name="userId" value=""/>
+                    </div>
+                </div>
+                &nbsp;<a id="add">+ 添加主播</a>
+            </td>
+        </tr>
+        <tr>
+            <td>版权：</td>
+            <td><select id="copyright" data-value="" name="copyright" data-value-name="id" data-text-name="name" data-get="usercenter/GetCopyright.action">
+            </select></td>
+        </tr>
+        <tr>
+            <td>总集数：</td>
+            <td><input id="sections" name="sections" type="number" value=""></td>
+        </tr>
+        <tr>
+            <td>总时长：</td>
+            <td><input id="length" name="length" type="number" value=""></td>
+        </tr>
+        <tr>
+            <td>下载次数真实：</td>
+            <td><input id="downloads" name="downloads" type="number" value="" readonly="readonly"></td>
+        </tr>
+        <tr>
+            <td>下载显示数据：</td>
+            <td><input id="downsShow" name="downsShow" type="number" value=""></td>
+        </tr>
+        <tr>
+            <td>播放次数真实：</td>
+            <td><input id="plays" name="plays" type="number" value="" readonly="readonly"></td>
+        </tr>
+        <tr>
+            <td>播放显示数据：</td>
+            <td><input id="playsShow" name="playsShow" type="number" value=""></td>
+        </tr>
+        <tr>
+            <td>评论平均分排序因子：</td>
+            <td><input id="commentMeanFactor" name="commentMeanFactor" type="number" value=""></td>
+        </tr>
+        <tr>
+            <td>推荐度：</td>
+            <td><input id="recommend" name="recommend" type="number" value=""></td>
+        </tr>
+        <tr>
+            <td>推荐：</td>
+
+            <td>
+                <span id="topicList" v=""></span>
+                <input type="radio" name="topicId" value="0" id="t0"/> <label for="t0">无</label>
+            </td>
+        </tr>
+        <tr>
+            <td>外部封面：</td>
+            <td>
+                <input id="cover" name="cover" type="text" />
+                <input id="picSize112" value="112x150" type="hidden">
+                <input id="picSize180" value="180x254" type="hidden">
+                <ul class="cover-list">
+                    <li><img id="iconImg112" src=""/>
+                        <div class="cover-list-btn" name="上传112X150"><span class="btn">上传122X150</span><div id="file-uploader112"></div></div>
+                    </li>
+                    <li><img id="iconImg180" src=""/>
+                        <div class="cover-list-btn" name="上传180x254"><span class="btn">上传180x254</span><div id="file-uploader180"></div></div>
+                    </li>
+                </ul>
+        </tr>
+        <tr>
+            <td>状态：</td>
+            <td><select id="state" name="state">
+                <option value="1" >连载</option>
+                <option value="2" >完结</option>
+                <option value="10">下线</option>
+            </select>下线后只下默认渠道的.其他渠道的并没有下线.</td>
+        </tr>
+        <tr>
+            <td>下线理由：</td>
+            <td><textarea id="stateReason" name="stateReason" rows="5" cols="100"></textarea> 没下线则为空</td>
+        </tr>
+        <tr>
+            <td>渠道状态：</td>
+            <td><select id="bstate" name="bstate">
+                <option value="0">正常</option>
+                <option value="1">下架</option>
+            </select>下架后所有渠道均下线.默认渠道不算在内.也就是没有在渠道列表添加的渠道不会下线.</td>
+        </tr>
+        <tr>
+            <td>渠道下线理由：</td>
+            <td><textarea id="bstateReason" name="bstateReason" rows="5" cols="100"></textarea> 没下线则为空</td>
+        </tr>
+        <tr>
+            <td>描述：</td>
+            <td><textarea id="desc" name="desc" rows="5" cols="100"></textarea></td>
+        </tr>
+        <tr>
+            <td>排序</td>
+            <td><select id="sort" name="sort">
+                <option value="0" >正序</option>
+                <option value="1" >倒序</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button class="btn-primary" type="button" id="submit" data-post="bookmanage/BookEdit.action">提交</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div id="p0" style="display: none;height: 160px;">
+    <div class="p1">
+        <select name="type">
+            <option value="0">主播昵称</option>
+            <option value="1">主播ID</option>
+        </select>
+        <input type="text"/>
+
+        <input type="button" value="搜索主播" class="search"/>
+        <input type="button" value="创建主播账号" class="create"/>
+        <div class="result" style="height:200px;"></div>
+    </div>
+
+    <div class="p2" style="display:none;height: 200px;">
+        <div>昵称：<input type="text" name="nickName"/></div>
+        <div>性别：<input type="radio" name="sex" value="1"/>男<input type="radio" name="sex" value="2"/>女</div>
+        <div>简介：<textarea name="remark" rows="5"></textarea></div>
+        <div class="errorTips" style="height:30px;padding:5px;color: red;"></div>
+        <div style="padding-left: 50px; "><button class="createAnchor">创建</button></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //图片上传112x150,默认规格
+    function createUploader112(){
+        var uploader = new qq.FileUploader({
+            element: document.getElementById('file-uploader112'),
+            action: '/yytingadmin/fileupload/BookFileUpload.servlet',
+            debug: true,
+            onComplete: function(id, fileName, responseJSON){
+                if(responseJSON.success) {
+                    $("#cover")[0].value = responseJSON.cover;
+                    $("#iconImg112")[0].src = responseJSON.path;
+                } else {
+                    if(responseJSON.msg == 1) {
+                        alert('文件过大，请重新选择文件')
+                    } else {
+                        alert('上传失败');
+                    }
+                }
+            }
+        });
+        document.getElementById('file-uploader112').onclick=function (){
+            uploader._handler._options.action='/yytingadmin/fileupload/BookFileUpload.servlet?picSize='+document.getElementById('picSize112').value+
+                    '&uploadTag=book&isDefault=true&cover='+document.getElementById('cover').value;
+        }
+
+    }
+    //图片上传180x254
+    function createUploader180() {
+        var uploader = new qq.FileUploader({
+            element : document.getElementById('file-uploader180'),
+            action : '/yytingadmin/fileupload/BookFileUpload.servlet',
+            debug : true,
+            onComplete : function(id, fileName, responseJSON) {
+                if(responseJSON.success) {
+                    $("#cover")[0].value = responseJSON.cover;
+                    $("#iconImg180")[0].src = responseJSON.path;
+                } else {
+                    if(responseJSON.msg == 1) {
+                        alert('文件过大，请重新选择文件')
+                    } else {
+                        alert('上传失败');
+                    }
+                }
+            }
+        });
+        document.getElementById('file-uploader180').onclick=function (){
+            uploader._handler._options.action='/yytingadmin/fileupload/BookFileUpload.servlet?picSize='+document.getElementById('picSize180').value+
+                    '&uploadTag=book&isDefault=false&cover='+document.getElementById('cover').value;
+        }
+    }
+
+    function changeFatherTypeId(){
+        var fatherId = $('#fatherTypeId').val();
+        var select=$('#sonTypeId');
+        select.html('');
+        select.append('<option selected="selected" value="-100">全部子类</option>');
+        select.attr('data-get', "bookmanage/GetFatherType.action?fatherId="+fatherId);
+        new SelectView($('#sonTypeId'));
+    }
+
+    //表单校验 data:参数对象
+    view.validate=function (data){
+        return true;//通过验证
+    };
+    //视图渲染完成后执行
+    window.ready=function (){
+        createUploader112();
+        createUploader180();
+
+        $(document).on('click','#add',function(){
+            $('.p1').show();
+            $('.p2').hide();
+            var pop = new Pop($('#p0').html(),'创建主播帐号',function(){
+            });
+        });
+        $(document).on('click','.search',function(){
+            var thiz=$(this);
+            var nickName=thiz.parent().find(':text').val();
+            var type=thiz.parent().find('select').val();
+            if(!!nickName) {
+                $.getJSON('/yytingadmin/resource/GetAnnouncer.action?type='+type+"&nickName="+nickName,function(data){
+                    if(!!data.user) {
+                        var u=data.user;
+                        var r=thiz.parent().find('.result');
+                        var flagStr='';
+                        if(u.isAnnouncer==1 || u.isStoreBook==1 || u.isSns==1) {
+                            flagStr+='( '+(u.isStoreBook==1?'书城主播':'') + (u.isAnnouncer==1?' 认证主播 ':' ') + (u.isSns==1?' 社区主播 ':' ') + ')';
+                        }
+                        r.html('<span style="border-bottom:1px solid;" class="anchor" userId="'+u.userId+'" nickName="'+u.nickName+'"><img src="'
+                                +u.cover+'" width="20px" height="20px"/>'+u.nickName+flagStr+'</span>');
+                    } else {
+                        thiz.parent().find('.result').html('没有找到该主播');
+                    }
+                });
+            }
+        });
+        $(document).on('click','.xx',function(){
+            $(this).parent().remove();
+        });
+        $(document).on('dblclick','.anchor',function(){
+            addAnchor($(this).attr('nickName'), $(this).attr('userId'));
+        });
+        function addAnchor(nickName, userId) {
+            var html='<div style="border:1px solid #b5b5b5;float:left;padding:2px 4px;"> \
+					<span>[nickName]</span>&nbsp; \
+					<a class="xx">X</a> \
+					<input type="hidden" name="userId" value="[userId]"/> \
+					</div>';
+            html=html.replace('[nickName]', nickName).replace('[userId]', userId);
+            $('#anchorList').append(html);
+        }
+
+        $(document).on('click','.create',function(){
+            $('.p1').hide();
+            $('.p2').show();
+        });
+
+        view.validate=function(data){
+            if(!data.bookName || ""==data.bookName.trim()){
+                alert('请输入书籍名称!');
+                return false;
+            }
+            if(!data.author || ""==data.author.trim()){
+                alert('请输入作者!');
+                return false;
+            }
+            if(!(data.sonTypeId != -100 || ($('#fatherTypeId').val() != -100 && $('#sonTypeId').find('option').size() == 1))) {
+                alert('请选择书籍分类');
+                return false;
+            }
+            var userIds=[];
+            $(':input:hidden[name=userId]').each(function(){
+                userIds.push($(this).val());
+            });
+            data.userIds=userIds.toString();
+            if(!data.userIds || ""==data.userIds.trim()){
+                alert('请添加主播!');
+                return false;
+            }
+            if(data.cover.trim()=="undefined"){
+                alert('图片上传失败，请重新上传');
+                return false;
+            }
+            return true;
+        };
+
+        $(document).on('click','.createAnchor',function(){
+            var p=$(this).parent().parent();
+            var nickName=$.trim(p.find('input[name=nickName]').val());
+            var sex=p.find('input[name=sex]:checked').val();
+            var remark=p.find(':input[name=remark]').val();
+            if(!nickName) {
+                p.find('.errorTips').html('请填写主播昵称');
+                return;
+            }
+            $.post('/yytingadmin/resource/AddAnchor.action',{'nickName':nickName,'sex':sex,'remark':remark},function(data){
+                if(data.status==0) {
+                    addAnchor(data.user.nickName, data.user.userId);
+                    p.find('.errorTips').html('添加成功');
+                    p.find(':input').val('');
+                } else {
+                    p.find('.errorTips').html(data.msg);
+                }
+            });
+        });
+
+        $.getJSON('/yytingadmin/bookmanage/GetTopicByType.action?type=3',function(data){
+            if(data.count > 0) {
+                var html='';
+                var d=data.list;
+                for(var i=0;i<d.length;i++){
+                    html+='<input type="radio" name="topicId" value="'+d[i].topicId+'" id="t'+d[i].topicId+'"/> <label for="t'+d[i].topicId+'">'+d[i].topicName+'</label>';
+                }
+                $('#topicList').html(html);
+                var topicId=$.trim($('#topicList').attr('v'))||0;
+                $('#topicList').find(':radio[value='+topicId+']').attr('checked',true);
+            }
+        });
+    };
+
+</script>
+</body>
+</html>

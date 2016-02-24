@@ -1,0 +1,2 @@
+# adminStaticPages
+pages 
