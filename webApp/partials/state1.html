@@ -51,7 +51,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="it in list" data-id="{{it.bookId}}" ng-dblclick="popEvent()">
+            <!--track by防止数组有重复值报错-->
+            <tr ng-repeat="it in list track by $index" data-id="{{it.bookId}}" ng-dblclick="popEvent()">
                 <td>{{it.bookId}}</td>
                 <td>
                     <a href="${homeUrl}book/{{it.bookId}}" target="_blank">

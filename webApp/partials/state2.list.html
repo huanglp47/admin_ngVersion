@@ -1,5 +1,30 @@
+<style>
+    table, th , td {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+    table tr:nth-child(odd) {
+        background-color: #f1f1f1;
+    }
+    table tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+</style>
 <h3> List of State 2 Items</h3>
 <hr/>
-<ul>
-    <li ng-repeat="item in items">{{item}}</li>
-</ul>
+<table class="">
+    <tr>
+        <th>序号</th>
+        <th ng-click="">歌手</th>
+        <th>赞</th>
+        <th>操作</th>
+    </tr>
+    <tr ng-repeat="item in items | orderBy:order">
+        <td>{{ $index + 1 }}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.zan}}</td>
+        <td><a ui-sref="editSinger">[编辑]</a> <a ng-click="delete($index)">[删除]</a></td>
+    </tr>
+</table>
+<div ui-view></div>

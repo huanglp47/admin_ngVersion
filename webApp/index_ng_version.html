@@ -48,7 +48,7 @@
 <div id="wrap">
     <div id="left"  ng-controller="GetNavLi">
         <ul style="display: block">
-            <li ng-repeat="item in items">
+            <li ng-repeat="item in items track by $index">
                 <a ui-sref="state{{$index+1}}">{{item}}</a>
             </li>
         </ul>
