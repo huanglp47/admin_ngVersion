@@ -2,8 +2,6 @@
 //数组有重复值时ng-repeat不加track by $index会报错(加orderBy也可以)
 //var dataLi = ['分类列表','分类列表', '书籍列表', '专题列表','检查书籍','搜索排行','多听资源', '版权列表', '书籍分类推荐'];
 var dataLi = ['分类列表', '书籍列表', '专题列表','检查书籍','搜索排行','多听资源', '版权列表', '书籍分类推荐'];
-
-
 angular.module('myApp', ['ui.router'])
     .controller('GetNavLi',function($scope){
         $scope.items = dataLi;
@@ -140,5 +138,6 @@ angular.module('myApp', ['ui.router'])
             })
     })
     .controller('ModalDemoCtrl', function($scope, $uibModal, $log){
+
     })
 

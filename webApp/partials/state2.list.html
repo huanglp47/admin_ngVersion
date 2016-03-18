@@ -10,21 +10,34 @@
     table tr:nth-child(even) {
         background-color: #ffffff;
     }
+    th{
+        cursor: pointer;
+    }
+    table{
+        width: 100%;
+        max-width: 100%;
+    }
 </style>
 <h3> List of State 2 Items</h3>
 <hr/>
+<div class="header">
+    <input type="text" name="keyWord" placeholder="请输入歌手名字" ng-model="query">
+</div>
 <table class="">
     <tr>
         <th>序号</th>
-        <th ng-click="">歌手</th>
-        <th>赞</th>
+        <th ng-click="order='id';desc=!desc">ID</th>
+        <th ng-click="order='name';desc=!desc">歌手</th>
+        <th ng-click="order='zan';desc=!desc">赞</th>
+        <th ng-click="order='age';desc=!desc">年龄</th>
         <th>操作</th>
     </tr>
-    <tr ng-repeat="item in items | orderBy:order">
+    <tr ng-repeat="item in items | filter:query | orderBy:order:desc">
         <td>{{ $index + 1 }}</td>
+        <td>{{item.id}}</td>
         <td>{{item.name}}</td>
         <td>{{item.zan}}</td>
-        <td><a ui-sref="editSinger">[编辑]</a> <a ng-click="delete($index)">[删除]</a></td>
+        <td>{{item.age}}</td>
+        <td><a ng-click="toProducer(item.id)">[编辑]</a> <a ng-click="delete($index)">[删除]</a></td>
     </tr>
 </table>
-<div ui-view></div>
