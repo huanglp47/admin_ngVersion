@@ -220,6 +220,14 @@ select {
 	position: relative;
 	+height:34px;
 	padding:2px;
+	border-top: 1px solid hsl(201, 86%, 33%);
+	border-top: 1px solid hsla(0, 0%, 0%, 0.1);
+	box-shadow: 0 1px 0 hsla(0, 100%, 100%, 0.04) inset;
+}
+
+#left li:first-child{
+	border-top: 0px;
+	box-shadow: none;
 }
 
 #left ul li.active:before {
