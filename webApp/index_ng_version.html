@@ -67,11 +67,11 @@
     	if (!height) {
     		height = $(window).height();
     	}
-    	$('#left').height(height - $('#top').height());
+    	$('#wrap').height(height - $('#top').height());
     }
     resize();
     window.onresize = resize;
-})
+})();
 </script>
 <script type="application/javascript" src="app.js"></script>
 </body>
